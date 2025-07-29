@@ -1,0 +1,12 @@
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).csproj.AssemblyReference.cache
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA_GRAccess_Demo_.NETFramework_.MainForm.resources
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA_GRAccess_Demo_.NETFramework_.Properties.Resources.resources
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).csproj.GenerateResource.cache
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).csproj.CoreCompileInputs.cache
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).csproj.ResolveComReference.cache
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA-GRAccess-Demo(.NETFramework).exe.config
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA-GRAccess-Demo(.NETFramework).exe
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA-GRAccess-Demo(.NETFramework).pdb
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).exe
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).pdb
+C:\Repositorios\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\obj\Debug\ArchestrA-GRAccess-Demo(.NETFramework).exe.config
