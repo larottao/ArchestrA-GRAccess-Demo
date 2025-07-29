@@ -7,7 +7,7 @@ namespace AvevaGRAccessDemo.Interfaces
     {
         public (bool success, string errorReason) setInitialConfig(InitialConfig initialConfig);
 
-        public (bool success, string errorReason, IGalaxies? galaxiesOnServer) enumerateGalaxiesOnServer();
+        public (bool success, string errorReason, List<IGalaxy> galaxiesOnServer) enumerateGalaxiesOnServer();
 
         public (bool success, string errorReason, IGalaxy? galaxy) loadExistingGalaxy(string argGalaxyName);
 

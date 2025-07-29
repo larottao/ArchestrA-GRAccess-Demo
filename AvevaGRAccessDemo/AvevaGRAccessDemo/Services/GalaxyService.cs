@@ -16,6 +16,8 @@
     using AvevaGRAccessDemo.Interfaces;
     using AvevaGRAccessDemo.Models;
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
 
     public class GalaxyService : IGalaxyOps
     {
@@ -28,6 +30,8 @@
         private ICommandResult? _cmd = null;
 
         private Boolean validNodeInfoWasProvided = false;
+
+        private Boolean currentlyLoggedIntoGalaxy = false;
 
         private GRAccessApp grAccess = new GRAccessAppClass();
 
@@ -53,22 +57,31 @@
             return (true, "");
         }
 
-        public (bool success, string errorReason, IGalaxies? galaxiesOnServer) enumerateGalaxiesOnServer()
+        public (bool success, string errorReason, List<IGalaxy> galaxiesOnServer) enumerateGalaxiesOnServer()
         {
+
+            List<IGalaxy> galaxiesList = new List<IGalaxy>();
+
             try
             {
                 if (!validNodeInfoWasProvided)
                 {
-                    return (false, "Provide valid node info first.", null);
+                    return (false, "Provide valid node info first.", galaxiesList);
                 }
 
                 _gals = grAccess.QueryGalaxies(nodeName);
+               
 
-                return (true, "", _gals);
+                foreach (IGalaxy galaxy in _gals)
+                {
+                    galaxiesList.Add(galaxy);
+                }
+
+                return (true, "", galaxiesList);
             }
             catch (Exception ex)
             {
-                return (false, $"Unable to enumerate Galaxies on server {ex.ToString}", null);
+                return (false, $"Unable to enumerate Galaxies on server {ex.ToString}", galaxiesList);
             }
         }
 
@@ -161,6 +174,8 @@
                     return (false, $"Login into Galaxy with name {argGalaxyName} failed: {_cmd.Text + " : " + _cmd.CustomMessage}.");
                 }
 
+                currentlyLoggedIntoGalaxy = true;
+
                 return (true, "");
             }
             catch (Exception ex)
@@ -180,6 +195,8 @@
 
                 _galaxy.Logout();
                 _galaxy = null;
+                currentlyLoggedIntoGalaxy = false;
+
                 return (true, "");
             }
             catch (Exception ex)

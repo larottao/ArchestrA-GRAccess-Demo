@@ -7,6 +7,7 @@
 //See AVEVA's original code here:
 //https://docs.aveva.com/bundle/sp-appserver/page/436618.html
 
+using ArchestrA.GRAccess;
 using AvevaGRAccessDemo.Interfaces;
 using AvevaGRAccessDemo.Models;
 using AvevaGRAccessDemo.Services;
@@ -31,9 +32,21 @@ namespace AvevaGRAccessDemo
         {
             var result = _galaxyOps.enumerateGalaxiesOnServer();
 
-            MessageBox.Show(result.success ? "Galaxy List retrieved successfully!" : $"Error: {result.errorReason}");
+            if(!result.success){
+                MessageBox.Show(result.errorReason);
+                return;
+            }
 
-            //TODO print each galaxy name
+            comboBoxGalaxiesOnServer.Items.Clear(); 
+
+            foreach (IGalaxy galaxy in result.galaxiesOnServer) {
+
+                comboBoxGalaxiesOnServer.Items.Add(galaxy.Name);
+            }
+
+            if (result.galaxiesOnServer.Any()) {
+                comboBoxGalaxiesOnServer.SelectedIndex = 0;
+            }
         }
 
         private void buttonSetInitialConfig_Click(object sender, EventArgs e)

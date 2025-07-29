@@ -40,7 +40,7 @@
             groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
-            label3 = new Label();
+            comboBoxGalaxiesOnServer = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -136,7 +136,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(comboBoxGalaxiesOnServer);
             groupBox2.Controls.Add(buttonEnumerateGalaxies);
             groupBox2.Location = new Point(23, 132);
             groupBox2.Name = "groupBox2";
@@ -167,14 +167,13 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Goal 4";
             // 
-            // label3
+            // comboBoxGalaxiesOnServer
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(179, 42);
-            label3.Name = "label3";
-            label3.Size = new Size(107, 15);
-            label3.TabIndex = 1;
-            label3.Text = "TODO: Print names";
+            comboBoxGalaxiesOnServer.FormattingEnabled = true;
+            comboBoxGalaxiesOnServer.Location = new Point(179, 39);
+            comboBoxGalaxiesOnServer.Name = "comboBoxGalaxiesOnServer";
+            comboBoxGalaxiesOnServer.Size = new Size(222, 23);
+            comboBoxGalaxiesOnServer.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -193,7 +192,6 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
@@ -214,6 +212,6 @@
         private GroupBox groupBox2;
         private GroupBox groupBox3;
         private GroupBox groupBox4;
-        private Label label3;
+        private ComboBox comboBoxGalaxiesOnServer;
     }
 }
