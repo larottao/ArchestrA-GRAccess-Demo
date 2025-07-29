@@ -48,6 +48,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     comboBoxGalaxiesOnServer.Enabled = true;
                     buttonEnumerateTemplates.Enabled = false;
                     comboBoxGalaxyTemplates.Enabled = false;
+                    buttonViewAttrib.Enabled = false;
 
                     break;
 
@@ -57,6 +58,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     comboBoxGalaxiesOnServer.Enabled = false;
                     buttonEnumerateTemplates.Enabled = true;
                     comboBoxGalaxyTemplates.Enabled = true;
+                    buttonViewAttrib.Enabled = true;
 
                     break;
             }
@@ -179,8 +181,18 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
         private void comboBoxGalaxyTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void buttonViewAttrib_Click(object sender, EventArgs e)
+        {
             //TODO Add a Gui to filter this
             //String[] requiredAttributes = { "PV", "CMD" };
+
+            if (String.IsNullOrEmpty(comboBoxGalaxyTemplates.Text))
+            {
+                return;
+            }
+
             String[] requiredAttributes = null;
 
             var result = _galaxyOps.getObjectAttributeDetails(comboBoxGalaxyTemplates.Text, requiredAttributes);
@@ -191,9 +203,15 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                 return;
             }
 
+            ObjectViewer objectViewer = new ObjectViewer();
+
             string message = string.Join(Environment.NewLine, result.attributeDetails.Select(detail => detail.ToString()));
 
-            MessageBox.Show(message, "Attribute Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            objectViewer.Text = comboBoxGalaxyTemplates.Text;
+
+            objectViewer.richTextBox.Text = message;
+
+            objectViewer.Show();
         }
     }
 }

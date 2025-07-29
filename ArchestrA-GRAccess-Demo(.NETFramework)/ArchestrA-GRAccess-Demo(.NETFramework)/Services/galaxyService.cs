@@ -323,11 +323,11 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
                     attributeDetails.Add(new ObjectAttributeDetail
                     {
-                        Name = attr.Name,
-                        Description = attr.Description.ToString(),
-                        DataType = attr.DataType.ToString(),
-                        Category = attr.AttributeCategory.ToString(),
-                        Value = ParseAttribute.GetAttributeValue(attr)
+                        name = attr.Name,
+                        description = attr.Description.ToString(),
+                        dataType = attr.DataType.ToString(),
+                        category = attr.AttributeCategory.ToString(),
+                        value = ParseAttribute.GetAttributeValue(attr)
                     });
                 }
 

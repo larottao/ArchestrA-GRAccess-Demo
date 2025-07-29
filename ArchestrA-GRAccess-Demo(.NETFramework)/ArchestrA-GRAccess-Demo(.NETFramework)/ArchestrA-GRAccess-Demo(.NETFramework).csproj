@@ -46,7 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\galaxyService.cs" />
+    <Compile Include="ObjectViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectViewer.Designer.cs">
+      <DependentUpon>ObjectViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\GalaxyService.cs" />
     <Compile Include="Interfaces\IGalaxyOps.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -61,6 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectViewer.resx">
+      <DependentUpon>ObjectViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

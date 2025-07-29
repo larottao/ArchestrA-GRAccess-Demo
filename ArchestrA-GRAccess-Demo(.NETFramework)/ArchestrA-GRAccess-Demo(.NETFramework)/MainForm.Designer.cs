@@ -48,6 +48,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBoxGalaxyTemplates = new System.Windows.Forms.ComboBox();
             this.buttonEnumerateTemplates = new System.Windows.Forms.Button();
+            this.buttonViewAttrib = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -63,7 +64,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonEnumerateGalaxies.TabIndex = 0;
             this.buttonEnumerateGalaxies.Text = "Enumerate Galaxies";
             this.buttonEnumerateGalaxies.UseVisualStyleBackColor = true;
-            buttonEnumerateGalaxies.Click += buttonEnumerateGalaxies_Click;
+            this.buttonEnumerateGalaxies.Click += new System.EventHandler(this.buttonEnumerateGalaxies_Click);
             // 
             // textBoxNodeName
             // 
@@ -90,7 +91,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonSetInitialConfig.TabIndex = 3;
             this.buttonSetInitialConfig.Text = "Set initial configuration";
             this.buttonSetInitialConfig.UseVisualStyleBackColor = true;
-            buttonSetInitialConfig.Click += buttonSetInitialConfig_Click;
+            this.buttonSetInitialConfig.Click += new System.EventHandler(this.buttonSetInitialConfig_Click);
             // 
             // buttonCreateNewGalaxy
             // 
@@ -100,7 +101,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonCreateNewGalaxy.TabIndex = 4;
             this.buttonCreateNewGalaxy.Text = "Create new Galaxy";
             this.buttonCreateNewGalaxy.UseVisualStyleBackColor = true;
-            buttonCreateNewGalaxy.Click += buttonCreateNewGalaxy_Click;
+            this.buttonCreateNewGalaxy.Click += new System.EventHandler(this.buttonCreateNewGalaxy_Click);
             // 
             // textBoxGalaxyName
             // 
@@ -128,7 +129,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonInsertObject.TabIndex = 7;
             this.buttonInsertObject.Text = "Insert object into Galaxy";
             this.buttonInsertObject.UseVisualStyleBackColor = true;
-            buttonInsertObject.Click += buttonInsertObject_Click;
+            this.buttonInsertObject.Click += new System.EventHandler(this.buttonInsertObject_Click);
             // 
             // groupBox1
             // 
@@ -147,7 +148,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.groupBox2.Controls.Add(this.buttonLoginIntoGalaxy);
             this.groupBox2.Controls.Add(this.comboBoxGalaxiesOnServer);
             this.groupBox2.Controls.Add(this.buttonEnumerateGalaxies);
-            this.groupBox2.Location = new System.Drawing.Point(20, 179);
+            this.groupBox2.Location = new System.Drawing.Point(20, 180);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(419, 114);
             this.groupBox2.TabIndex = 9;
@@ -156,13 +157,13 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             // 
             // buttonLoginIntoGalaxy
             // 
-            this.buttonLoginIntoGalaxy.Location = new System.Drawing.Point(235, 67);
+            this.buttonLoginIntoGalaxy.Location = new System.Drawing.Point(236, 61);
             this.buttonLoginIntoGalaxy.Name = "buttonLoginIntoGalaxy";
             this.buttonLoginIntoGalaxy.Size = new System.Drawing.Size(162, 29);
             this.buttonLoginIntoGalaxy.TabIndex = 2;
             this.buttonLoginIntoGalaxy.Text = "Login into Galaxy";
             this.buttonLoginIntoGalaxy.UseVisualStyleBackColor = true;
-            buttonLoginIntoGalaxy.Click += buttonLoginIntoGalaxy_Click;
+            this.buttonLoginIntoGalaxy.Click += new System.EventHandler(this.buttonLoginIntoGalaxy_Click);
             // 
             // comboBoxGalaxiesOnServer
             // 
@@ -171,7 +172,6 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.comboBoxGalaxiesOnServer.Name = "comboBoxGalaxiesOnServer";
             this.comboBoxGalaxiesOnServer.Size = new System.Drawing.Size(191, 21);
             this.comboBoxGalaxiesOnServer.TabIndex = 1;
-            comboBoxGalaxyTemplates.SelectedIndexChanged += comboBoxGalaxyTemplates_SelectedIndexChanged;
             // 
             // groupBox3
             // 
@@ -188,7 +188,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.buttonInsertObject);
-            this.groupBox4.Location = new System.Drawing.Point(20, 380);
+            this.groupBox4.Location = new System.Drawing.Point(20, 420);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(419, 75);
             this.groupBox4.TabIndex = 11;
@@ -197,11 +197,12 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.buttonViewAttrib);
             this.groupBox5.Controls.Add(this.comboBoxGalaxyTemplates);
             this.groupBox5.Controls.Add(this.buttonEnumerateTemplates);
-            this.groupBox5.Location = new System.Drawing.Point(20, 299);
+            this.groupBox5.Location = new System.Drawing.Point(20, 300);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(419, 75);
+            this.groupBox5.Size = new System.Drawing.Size(419, 114);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Goal 4";
@@ -214,7 +215,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.comboBoxGalaxyTemplates.Name = "comboBoxGalaxyTemplates";
             this.comboBoxGalaxyTemplates.Size = new System.Drawing.Size(191, 21);
             this.comboBoxGalaxyTemplates.TabIndex = 13;
-            comboBoxGalaxyTemplates.SelectedIndexChanged += comboBoxGalaxyTemplates_SelectedIndexChanged;
+            this.comboBoxGalaxyTemplates.SelectedIndexChanged += new System.EventHandler(this.comboBoxGalaxyTemplates_SelectedIndexChanged);
             // 
             // buttonEnumerateTemplates
             // 
@@ -225,13 +226,24 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonEnumerateTemplates.TabIndex = 7;
             this.buttonEnumerateTemplates.Text = "Enumerate Galaxy Templates";
             this.buttonEnumerateTemplates.UseVisualStyleBackColor = true;
-            buttonEnumerateTemplates.Click += buttonEnumerateTemplates_Click;
+            this.buttonEnumerateTemplates.Click += new System.EventHandler(this.buttonEnumerateTemplates_Click);
+            // 
+            // buttonViewAttrib
+            // 
+            this.buttonViewAttrib.Enabled = false;
+            this.buttonViewAttrib.Location = new System.Drawing.Point(236, 60);
+            this.buttonViewAttrib.Name = "buttonViewAttrib";
+            this.buttonViewAttrib.Size = new System.Drawing.Size(162, 29);
+            this.buttonViewAttrib.TabIndex = 14;
+            this.buttonViewAttrib.Text = "View Attributes";
+            this.buttonViewAttrib.UseVisualStyleBackColor = true;
+            this.buttonViewAttrib.Click += new System.EventHandler(this.buttonViewAttrib_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 470);
+            this.ClientSize = new System.Drawing.Size(458, 510);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -240,7 +252,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Aveva GR Access Demo";  
+            this.Text = "Aveva GR Access Demo";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -270,6 +282,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button buttonEnumerateTemplates;
         private System.Windows.Forms.ComboBox comboBoxGalaxyTemplates;
+        private Button buttonViewAttrib;
     }
 }
 
