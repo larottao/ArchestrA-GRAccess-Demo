@@ -223,40 +223,67 @@
 
         public (bool success, string errorReason, List<string> templateNames) enumerateGalaxyTemplates()
         {
-            var instanceNames = new List<string>();
+            var templateNames = new List<string>();
 
             try
             {
                 if (_galaxy == null || !_currentlyLoggedIntoGalaxy)
                 {
-                    return (false, "You must login into a Galaxy first.", instanceNames);
+                    return (false, "You must login into a Galaxy first.", templateNames);
                 }
 
-                dynamic galaxyDynamic = _galaxy;
+                //How to search:
 
-                // Integer values for enums:
-                // EgObjectIsTemplateOrInstance:
-                // 0 = Template
-                // 1 = Instance
+                //string[] tagnames = { "*" }; //Nah, this does not work.
+                //string[] tagnames = { "$UserDefined" };
+                //string[] tagnames = { "$AppEngine" };
+           
+                /*
+                
+                EgObjectIsTemplateOrInstance:
 
-                // EConditionType:
-                // 0 = Name
+                    gObjectIsTemplate
+                    gObjectIsInstance
 
-                // EMatchCondition:
-                // 0 = Any match
+                    EConditionType:
 
-                dynamic instances = galaxyDynamic.QueryObjects(1, 0, 0);  // 1 = Instances
+                    0 = gConditionName (or Name in some contexts)
+                    1 = gConditionTagname
+                    2 = gConditionDerivedFrom
+                                    
 
-                foreach (var instance in instances)
+                    EMatchCondition:
+
+                    0 = gMatchAny
+                    1 = gMatchExact
+                    2 = gMatchWildcard
+
+                */
+
+                IgObjects queryResult = _galaxy.QueryObjects(
+                  EgObjectIsTemplateOrInstance.gObjectIsInstance, // Instances
+                  0, // Name
+                  0); //EMatchCondition
+
+
+                _cmd = _galaxy.CommandResult;
+
+                if (!_cmd.Successful)
                 {
-                    instanceNames.Add(instance.Name.ToString());
+                    return (false, $"Querying for templates failed: {_cmd.Text} : {_cmd.CustomMessage}", templateNames);
                 }
 
-                return (true, "", instanceNames);
+                foreach (IgObject obj in queryResult)
+                {
+                    // CORRECTED: Use obj.Tagname directly.
+                    templateNames.Add(obj.Tagname);
+                }
+
+                return (true, "", templateNames);
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to enumerate instances: {ex.Message}", instanceNames);
+                return (false, $"Failed to enumerate templates: {ex.Message}", templateNames);
             }
         }
     }

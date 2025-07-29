@@ -23,27 +23,24 @@ namespace AvevaGRAccessDemo
 
         private IGalaxyOps _galaxyOps = new GalaxyService();
 
-
         #region UI related stuff region
 
-        enum UI_STATE { LOGGED_INTO_GALAXY, READY_TO_LOGIN }
+        private enum UI_STATE
+        { LOGGED_INTO_GALAXY, READY_TO_LOGIN }
 
-        UI_STATE currentUiState = UI_STATE.READY_TO_LOGIN;
+        private UI_STATE currentUiState = UI_STATE.READY_TO_LOGIN;
 
         private void setNewUiState(UI_STATE argUiState)
         {
-
-
             currentUiState = argUiState;
             switch (argUiState)
             {
-
-
                 case UI_STATE.READY_TO_LOGIN:
 
                     buttonLoginIntoGalaxy.Text = "Login into Galaxy";
                     comboBoxGalaxiesOnServer.Enabled = true;
                     buttonEnumerateTemplates.Enabled = false;
+                    comboBoxGalaxyTemplates.Enabled = false;
 
                     break;
 
@@ -52,14 +49,13 @@ namespace AvevaGRAccessDemo
                     buttonLoginIntoGalaxy.Text = "Logout from Galaxy";
                     comboBoxGalaxiesOnServer.Enabled = false;
                     buttonEnumerateTemplates.Enabled = true;
+                    comboBoxGalaxyTemplates.Enabled = true;
 
                     break;
-
-
             }
         }
 
-        #endregion
+        #endregion UI related stuff region
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -80,7 +76,6 @@ namespace AvevaGRAccessDemo
 
             foreach (IGalaxy galaxy in result.galaxiesOnServer)
             {
-
                 comboBoxGalaxiesOnServer.Items.Add(galaxy.Name);
             }
 
@@ -88,6 +83,8 @@ namespace AvevaGRAccessDemo
             {
                 comboBoxGalaxiesOnServer.SelectedIndex = 0;
             }
+
+            MessageBox.Show("Galaxies enumerated successfully!");
         }
 
         private void buttonSetInitialConfig_Click(object sender, EventArgs e)
@@ -116,14 +113,13 @@ namespace AvevaGRAccessDemo
 
         private void buttonLoginIntoGalaxy_Click(object sender, EventArgs e)
         {
-            if (comboBoxGalaxiesOnServer.SelectedIndex < 0)
-            {
-                MessageBox.Show("Select a Galaxy first");
-                return;
-            }
-
             if (currentUiState == UI_STATE.READY_TO_LOGIN)
             {
+                if (comboBoxGalaxiesOnServer.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Select a Galaxy first");
+                    return;
+                }
 
                 var loginResult = _galaxyOps.loginIntoGalaxy(comboBoxGalaxiesOnServer.Text, "", "");
 
@@ -136,10 +132,8 @@ namespace AvevaGRAccessDemo
                     MessageBox.Show(loginResult.errorReason);
                 }
             }
-
             else if (currentUiState == UI_STATE.LOGGED_INTO_GALAXY)
             {
-
                 var logoutResult = _galaxyOps.logoutFromGalaxy();
 
                 if (logoutResult.success)
@@ -151,18 +145,29 @@ namespace AvevaGRAccessDemo
                     MessageBox.Show(logoutResult.errorReason);
                 }
             }
-
         }
 
         private void buttonEnumerateTemplates_Click(object sender, EventArgs e)
         {
             var result = _galaxyOps.enumerateGalaxyTemplates();
 
-            MessageBox.Show(result.success ? "Templates enumerated successfully!" : $"Error: {result.errorReason}");
+            if (!result.success)
+            {
+                MessageBox.Show(result.errorReason);
+                return;
+            }
+
+            comboBoxGalaxyTemplates.Items.Clear();
+
+            foreach (String templateName in result.templateNames)
+            {
+                comboBoxGalaxyTemplates.Items.Add(templateName);
+            }
+
+            if (result.templateNames.Any())
+            {
+                comboBoxGalaxyTemplates.SelectedIndex = 0;
+            }
         }
     }
-
-
-
-
 }

@@ -43,6 +43,7 @@
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
             groupBox5 = new GroupBox();
+            comboBoxGalaxyTemplates = new ComboBox();
             buttonEnumerateTemplates = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -55,7 +56,7 @@
             // 
             buttonEnumerateGalaxies.Location = new Point(19, 33);
             buttonEnumerateGalaxies.Name = "buttonEnumerateGalaxies";
-            buttonEnumerateGalaxies.Size = new Size(144, 33);
+            buttonEnumerateGalaxies.Size = new Size(189, 33);
             buttonEnumerateGalaxies.TabIndex = 0;
             buttonEnumerateGalaxies.Text = "Enumerate Galaxies";
             buttonEnumerateGalaxies.UseVisualStyleBackColor = true;
@@ -133,7 +134,7 @@
             groupBox1.Controls.Add(buttonSetInitialConfig);
             groupBox1.Location = new Point(23, 21);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(421, 87);
+            groupBox1.Size = new Size(489, 87);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             groupBox1.Text = "Goal 1";
@@ -145,14 +146,14 @@
             groupBox2.Controls.Add(buttonEnumerateGalaxies);
             groupBox2.Location = new Point(23, 207);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(421, 132);
+            groupBox2.Size = new Size(489, 132);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Goal 3";
             // 
             // buttonLoginIntoGalaxy
             // 
-            buttonLoginIntoGalaxy.Location = new Point(212, 77);
+            buttonLoginIntoGalaxy.Location = new Point(274, 77);
             buttonLoginIntoGalaxy.Name = "buttonLoginIntoGalaxy";
             buttonLoginIntoGalaxy.Size = new Size(189, 33);
             buttonLoginIntoGalaxy.TabIndex = 2;
@@ -163,7 +164,7 @@
             // comboBoxGalaxiesOnServer
             // 
             comboBoxGalaxiesOnServer.FormattingEnabled = true;
-            comboBoxGalaxiesOnServer.Location = new Point(179, 39);
+            comboBoxGalaxiesOnServer.Location = new Point(241, 39);
             comboBoxGalaxiesOnServer.Name = "comboBoxGalaxiesOnServer";
             comboBoxGalaxiesOnServer.Size = new Size(222, 23);
             comboBoxGalaxiesOnServer.TabIndex = 1;
@@ -175,7 +176,7 @@
             groupBox3.Controls.Add(label2);
             groupBox3.Location = new Point(23, 114);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(421, 87);
+            groupBox3.Size = new Size(489, 87);
             groupBox3.TabIndex = 10;
             groupBox3.TabStop = false;
             groupBox3.Text = "Goal 2";
@@ -185,20 +186,30 @@
             groupBox4.Controls.Add(buttonInsertObject);
             groupBox4.Location = new Point(23, 438);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(421, 87);
+            groupBox4.Size = new Size(489, 87);
             groupBox4.TabIndex = 11;
             groupBox4.TabStop = false;
             groupBox4.Text = "Goal 5";
             // 
             // groupBox5
             // 
+            groupBox5.Controls.Add(comboBoxGalaxyTemplates);
             groupBox5.Controls.Add(buttonEnumerateTemplates);
             groupBox5.Location = new Point(23, 345);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(421, 87);
+            groupBox5.Size = new Size(489, 87);
             groupBox5.TabIndex = 12;
             groupBox5.TabStop = false;
             groupBox5.Text = "Goal 4";
+            // 
+            // comboBoxGalaxyTemplates
+            // 
+            comboBoxGalaxyTemplates.Enabled = false;
+            comboBoxGalaxyTemplates.FormattingEnabled = true;
+            comboBoxGalaxyTemplates.Location = new Point(241, 38);
+            comboBoxGalaxyTemplates.Name = "comboBoxGalaxyTemplates";
+            comboBoxGalaxyTemplates.Size = new Size(222, 23);
+            comboBoxGalaxyTemplates.TabIndex = 13;
             // 
             // buttonEnumerateTemplates
             // 
@@ -215,7 +226,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(468, 542);
+            ClientSize = new Size(534, 542);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -254,5 +265,6 @@
         private Button buttonLoginIntoGalaxy;
         private GroupBox groupBox5;
         private Button buttonEnumerateTemplates;
+        private ComboBox comboBoxGalaxyTemplates;
     }
 }
