@@ -23,9 +23,43 @@ namespace AvevaGRAccessDemo
 
         private IGalaxyOps _galaxyOps = new GalaxyService();
 
+
+        #region UI related stuff region
+
         enum UI_STATE { LOGGED_INTO_GALAXY, READY_TO_LOGIN }
 
         UI_STATE currentUiState = UI_STATE.READY_TO_LOGIN;
+
+        private void setNewUiState(UI_STATE argUiState)
+        {
+
+
+            currentUiState = argUiState;
+            switch (argUiState)
+            {
+
+
+                case UI_STATE.READY_TO_LOGIN:
+
+                    buttonLoginIntoGalaxy.Text = "Login into Galaxy";
+                    comboBoxGalaxiesOnServer.Enabled = true;
+                    buttonEnumerateTemplates.Enabled = false;
+
+                    break;
+
+                case UI_STATE.LOGGED_INTO_GALAXY:
+
+                    buttonLoginIntoGalaxy.Text = "Logout from Galaxy";
+                    comboBoxGalaxiesOnServer.Enabled = false;
+                    buttonEnumerateTemplates.Enabled = true;
+
+                    break;
+
+
+            }
+        }
+
+        #endregion
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -82,7 +116,8 @@ namespace AvevaGRAccessDemo
 
         private void buttonLoginIntoGalaxy_Click(object sender, EventArgs e)
         {
-            if (comboBoxGalaxiesOnServer.SelectedIndex < 0) {
+            if (comboBoxGalaxiesOnServer.SelectedIndex < 0)
+            {
                 MessageBox.Show("Select a Galaxy first");
                 return;
             }
@@ -97,7 +132,7 @@ namespace AvevaGRAccessDemo
                     setNewUiState(UI_STATE.LOGGED_INTO_GALAXY);
                 }
                 else
-                {               
+                {
                     MessageBox.Show(loginResult.errorReason);
                 }
             }
@@ -119,29 +154,11 @@ namespace AvevaGRAccessDemo
 
         }
 
-        private void setNewUiState(UI_STATE argUiState) {
+        private void buttonEnumerateTemplates_Click(object sender, EventArgs e)
+        {
+            var result = _galaxyOps.enumerateGalaxyTemplates();
 
-
-            currentUiState = argUiState;
-            switch (argUiState) {
-
-                
-                case UI_STATE.READY_TO_LOGIN:
-
-                    buttonLoginIntoGalaxy.Text = "Login into Galaxy";
-                    comboBoxGalaxiesOnServer.Enabled = true;
-
-                    break;
-
-                case UI_STATE.LOGGED_INTO_GALAXY:
-
-                    buttonLoginIntoGalaxy.Text = "Logout from Galaxy";
-                    comboBoxGalaxiesOnServer.Enabled = false;
-
-                    break;
-
-        
-            }
+            MessageBox.Show(result.success ? "Templates enumerated successfully!" : $"Error: {result.errorReason}");
         }
     }
 

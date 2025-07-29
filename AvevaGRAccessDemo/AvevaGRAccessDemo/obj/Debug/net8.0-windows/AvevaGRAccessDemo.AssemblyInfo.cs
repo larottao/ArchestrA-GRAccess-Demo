@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AvevaGRAccessDemo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+facc4805de0ae3e84dedfe4aedbaa641cd42894f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fdaf51f2ec0821607ecd791c185f7b88f7e1b30")]
 [assembly: System.Reflection.AssemblyProductAttribute("AvevaGRAccessDemo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AvevaGRAccessDemo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

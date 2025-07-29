@@ -6,11 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="ArchestrA.GRAccess">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll</HintPath>
     </Reference>
   </ItemGroup>
 

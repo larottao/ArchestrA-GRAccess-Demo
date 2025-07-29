@@ -38,14 +38,17 @@
             buttonInsertObject = new Button();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            buttonLoginIntoGalaxy = new Button();
             comboBoxGalaxiesOnServer = new ComboBox();
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
-            buttonLoginIntoGalaxy = new Button();
+            groupBox5 = new GroupBox();
+            buttonEnumerateTemplates = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // buttonEnumerateGalaxies
@@ -79,7 +82,7 @@
             // 
             buttonSetInitialConfig.Location = new Point(179, 40);
             buttonSetInitialConfig.Name = "buttonSetInitialConfig";
-            buttonSetInitialConfig.Size = new Size(144, 33);
+            buttonSetInitialConfig.Size = new Size(189, 33);
             buttonSetInitialConfig.TabIndex = 3;
             buttonSetInitialConfig.Text = "Set initial configuration";
             buttonSetInitialConfig.UseVisualStyleBackColor = true;
@@ -89,7 +92,7 @@
             // 
             buttonCreateNewGalaxy.Location = new Point(179, 38);
             buttonCreateNewGalaxy.Name = "buttonCreateNewGalaxy";
-            buttonCreateNewGalaxy.Size = new Size(144, 33);
+            buttonCreateNewGalaxy.Size = new Size(189, 33);
             buttonCreateNewGalaxy.TabIndex = 4;
             buttonCreateNewGalaxy.Text = "Create new Galaxy";
             buttonCreateNewGalaxy.UseVisualStyleBackColor = true;
@@ -117,7 +120,7 @@
             buttonInsertObject.Enabled = false;
             buttonInsertObject.Location = new Point(19, 32);
             buttonInsertObject.Name = "buttonInsertObject";
-            buttonInsertObject.Size = new Size(144, 33);
+            buttonInsertObject.Size = new Size(189, 33);
             buttonInsertObject.TabIndex = 7;
             buttonInsertObject.Text = "Insert object into Galaxy";
             buttonInsertObject.UseVisualStyleBackColor = true;
@@ -140,12 +143,22 @@
             groupBox2.Controls.Add(buttonLoginIntoGalaxy);
             groupBox2.Controls.Add(comboBoxGalaxiesOnServer);
             groupBox2.Controls.Add(buttonEnumerateGalaxies);
-            groupBox2.Location = new Point(23, 132);
+            groupBox2.Location = new Point(23, 207);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(421, 132);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Goal 2";
+            groupBox2.Text = "Goal 3";
+            // 
+            // buttonLoginIntoGalaxy
+            // 
+            buttonLoginIntoGalaxy.Location = new Point(212, 77);
+            buttonLoginIntoGalaxy.Name = "buttonLoginIntoGalaxy";
+            buttonLoginIntoGalaxy.Size = new Size(189, 33);
+            buttonLoginIntoGalaxy.TabIndex = 2;
+            buttonLoginIntoGalaxy.Text = "Login into Galaxy";
+            buttonLoginIntoGalaxy.UseVisualStyleBackColor = true;
+            buttonLoginIntoGalaxy.Click += buttonLoginIntoGalaxy_Click;
             // 
             // comboBoxGalaxiesOnServer
             // 
@@ -160,38 +173,50 @@
             groupBox3.Controls.Add(textBoxGalaxyName);
             groupBox3.Controls.Add(buttonCreateNewGalaxy);
             groupBox3.Controls.Add(label2);
-            groupBox3.Location = new Point(23, 315);
+            groupBox3.Location = new Point(23, 114);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(421, 87);
             groupBox3.TabIndex = 10;
             groupBox3.TabStop = false;
-            groupBox3.Text = "Goal 3";
+            groupBox3.Text = "Goal 2";
             // 
             // groupBox4
             // 
             groupBox4.Controls.Add(buttonInsertObject);
-            groupBox4.Location = new Point(23, 418);
+            groupBox4.Location = new Point(23, 438);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(421, 87);
             groupBox4.TabIndex = 11;
             groupBox4.TabStop = false;
-            groupBox4.Text = "Goal 4";
+            groupBox4.Text = "Goal 5";
             // 
-            // buttonLoginIntoGalaxy
+            // groupBox5
             // 
-            buttonLoginIntoGalaxy.Location = new Point(257, 77);
-            buttonLoginIntoGalaxy.Name = "buttonLoginIntoGalaxy";
-            buttonLoginIntoGalaxy.Size = new Size(144, 33);
-            buttonLoginIntoGalaxy.TabIndex = 2;
-            buttonLoginIntoGalaxy.Text = "Login into Galaxy";
-            buttonLoginIntoGalaxy.UseVisualStyleBackColor = true;
-            buttonLoginIntoGalaxy.Click += buttonLoginIntoGalaxy_Click;
+            groupBox5.Controls.Add(buttonEnumerateTemplates);
+            groupBox5.Location = new Point(23, 345);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(421, 87);
+            groupBox5.TabIndex = 12;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Goal 4";
+            // 
+            // buttonEnumerateTemplates
+            // 
+            buttonEnumerateTemplates.Enabled = false;
+            buttonEnumerateTemplates.Location = new Point(19, 32);
+            buttonEnumerateTemplates.Name = "buttonEnumerateTemplates";
+            buttonEnumerateTemplates.Size = new Size(189, 33);
+            buttonEnumerateTemplates.TabIndex = 7;
+            buttonEnumerateTemplates.Text = "Enumerate Galaxy Templates";
+            buttonEnumerateTemplates.UseVisualStyleBackColor = true;
+            buttonEnumerateTemplates.Click += buttonEnumerateTemplates_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(468, 537);
+            ClientSize = new Size(468, 542);
+            Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -207,6 +232,7 @@
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -226,5 +252,7 @@
         private GroupBox groupBox4;
         private ComboBox comboBoxGalaxiesOnServer;
         private Button buttonLoginIntoGalaxy;
+        private GroupBox groupBox5;
+        private Button buttonEnumerateTemplates;
     }
 }

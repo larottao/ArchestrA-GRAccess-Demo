@@ -9,7 +9,6 @@
     //See AVEVA's original code here:
     //https://docs.aveva.com/bundle/sp-appserver/page/436618.html
 
-
     //TODO: Make this service async, to avoid blocking the UI!
 
     using ArchestrA.GRAccess;
@@ -59,7 +58,6 @@
 
         public (bool success, string errorReason, List<IGalaxy> galaxiesOnServer) enumerateGalaxiesOnServer()
         {
-
             List<IGalaxy> galaxiesList = new List<IGalaxy>();
 
             try
@@ -70,7 +68,6 @@
                 }
 
                 _gals = grAccess.QueryGalaxies(nodeName);
-               
 
                 foreach (IGalaxy galaxy in _gals)
                 {
@@ -207,132 +204,162 @@
 
         public (bool success, string errorReason, bool isLogged, string galaxyName) isUserCurrentlyLoggedIntoGalaxy()
         {
-            try {
-
-                if (_currentlyLoggedIntoGalaxy && _galaxy != null) {
-
+            try
+            {
+                if (_currentlyLoggedIntoGalaxy && _galaxy != null)
+                {
                     return (true, "", true, _galaxy.Name);
                 }
-                else {                   
-
-                        return (true, "", false, "");
-                    }                
+                else
+                {
+                    return (true, "", false, "");
+                }
             }
-
             catch (Exception ex)
             {
                 return (false, $"Unable to get Login status from Galaxy: {ex.Message}", false, "");
             }
-
         }
 
-        public (bool success, string errorReason, List<object>) enumerateGalaxyObjects()
+        public (bool success, string errorReason, List<string> templateNames) enumerateGalaxyTemplates()
         {
-            return (false, "Not yet implemented", new List<object>());
+            var instanceNames = new List<string>();
 
-            /*
-
-            TODO: Understand this
-
-             string[] tagnames = { "$UserDefined" };
-
-            IgObjects queryResult = galaxy.QueryObjectsByName(
-
-            EgObjectIsTemplateOrInstance.gObjectIsTemplate,
-
-            ref tagnames);
-
-            cmd = galaxy.CommandResult;
-
-            if (!cmd.Successful)
-
+            try
             {
-                Debug.WriteLine("QueryObjectsByName Failed for $UserDefined Template :" +
-
-                        cmd.Text + " : " +
-
-                        cmd.CustomMessage);
-
-                return;
-            }
-
-            ITemplate userDefinedTemplate = (ITemplate)queryResult[1];
-
-            // create an instance of $UserDefined, named with current time
-
-            DateTime now = DateTime.Now;
-
-            string instanceName = String.Format("sample_object_{0}_{1}_{2}"
-
-            , now.Hour.ToString("00")
-
-            , now.Minute.ToString("00")
-
-            , now.Second.ToString("00"));
-
-            IInstance sampleinst = userDefinedTemplate.CreateInstance(instanceName, true);
-
-            //How to edit the object ?
-
-            sampleinst.CheckOut();
-
-            sampleinst.AddUDA("Names",
-
-            MxDataType.MxString,
-
-            MxAttributeCategory.MxCategoryWriteable_USC_Lockable,
-
-            MxSecurityClassification.MxSecurityOperate,
-
-            true,
-
-            5);
-
-            IAttributes attrs = sampleinst.ConfigurableAttributes;
-
-            //Diplay first 5 attribute names from collection
-
-            for (int i = 1; i <= 5; i++)
-
-            {
-                IAttribute attrb = attrs[i];
-
-                Debug.WriteLine(attrb.Name);
-            }
-
-            IAttribute attr1 = attrs["Names"];
-
-            MxValue mxv = new MxValueClass();
-
-            // we don't need to check that attribute is array type or not
-
-            // because we set it as array type when we addUDA.
-
-            // I am just showing example, you can do like this.
-
-            if (attr1.UpperBoundDim1 > 0)
-
-            {
-                for (int i = 1; i <= attr1.UpperBoundDim1; i++)
-
+                if (_galaxy == null || !_currentlyLoggedIntoGalaxy)
                 {
-                    MxValue mxvelement = new MxValueClass();
-
-                    mxvelement.PutString("string element number " + i.ToString());
-
-                    mxv.PutElement(i, mxvelement);
+                    return (false, "You must login into a Galaxy first.", instanceNames);
                 }
 
-                attr1.SetValue(mxv);
+                dynamic galaxyDynamic = _galaxy;
+
+                // Integer values for enums:
+                // EgObjectIsTemplateOrInstance:
+                // 0 = Template
+                // 1 = Instance
+
+                // EConditionType:
+                // 0 = Name
+
+                // EMatchCondition:
+                // 0 = Any match
+
+                dynamic instances = galaxyDynamic.QueryObjects(1, 0, 0);  // 1 = Instances
+
+                foreach (var instance in instances)
+                {
+                    instanceNames.Add(instance.Name.ToString());
+                }
+
+                return (true, "", instanceNames);
             }
-
-            sampleinst.Save();
-
-            sampleinst.CheckIn("Check in after addUDA");
-
-              */
+            catch (Exception ex)
+            {
+                return (false, $"Failed to enumerate instances: {ex.Message}", instanceNames);
+            }
         }
-
-   
     }
 }
+
+/*
+
+TODO: Understand this
+
+ string[] tagnames = { "$UserDefined" };
+
+IgObjects queryResult = galaxy.QueryObjectsByName(
+
+EgObjectIsTemplateOrInstance.gObjectIsTemplate,
+
+ref tagnames);
+
+cmd = galaxy.CommandResult;
+
+if (!cmd.Successful)
+
+{
+    Debug.WriteLine("QueryObjectsByName Failed for $UserDefined Template :" +
+
+            cmd.Text + " : " +
+
+            cmd.CustomMessage);
+
+    return;
+}
+
+ITemplate userDefinedTemplate = (ITemplate)queryResult[1];
+
+// create an instance of $UserDefined, named with current time
+
+DateTime now = DateTime.Now;
+
+string instanceName = String.Format("sample_object_{0}_{1}_{2}"
+
+, now.Hour.ToString("00")
+
+, now.Minute.ToString("00")
+
+, now.Second.ToString("00"));
+
+IInstance sampleinst = userDefinedTemplate.CreateInstance(instanceName, true);
+
+//How to edit the object ?
+
+sampleinst.CheckOut();
+
+sampleinst.AddUDA("Names",
+
+MxDataType.MxString,
+
+MxAttributeCategory.MxCategoryWriteable_USC_Lockable,
+
+MxSecurityClassification.MxSecurityOperate,
+
+true,
+
+5);
+
+IAttributes attrs = sampleinst.ConfigurableAttributes;
+
+//Diplay first 5 attribute names from collection
+
+for (int i = 1; i <= 5; i++)
+
+{
+    IAttribute attrb = attrs[i];
+
+    Debug.WriteLine(attrb.Name);
+}
+
+IAttribute attr1 = attrs["Names"];
+
+MxValue mxv = new MxValueClass();
+
+// we don't need to check that attribute is array type or not
+
+// because we set it as array type when we addUDA.
+
+// I am just showing example, you can do like this.
+
+if (attr1.UpperBoundDim1 > 0)
+
+{
+    for (int i = 1; i <= attr1.UpperBoundDim1; i++)
+
+    {
+        MxValue mxvelement = new MxValueClass();
+
+        mxvelement.PutString("string element number " + i.ToString());
+
+        mxv.PutElement(i, mxvelement);
+    }
+
+    attr1.SetValue(mxv);
+}
+
+sampleinst.Save();
+
+sampleinst.CheckIn("Check in after addUDA");
+
+  */
