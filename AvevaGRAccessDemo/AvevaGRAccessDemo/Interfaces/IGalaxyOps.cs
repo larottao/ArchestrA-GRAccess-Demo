@@ -1,0 +1,22 @@
+﻿using ArchestrA.GRAccess;
+using AvevaGRAccessDemo.Models;
+
+namespace AvevaGRAccessDemo.Interfaces
+{
+    public interface IGalaxyOps
+    {
+        public (bool success, string errorReason) setInitialConfig(InitialConfig initialConfig);
+
+        public (bool success, string errorReason, IGalaxies? galaxiesOnServer) enumerateGalaxiesOnServer();
+
+        public (bool success, string errorReason, IGalaxy? galaxy) loadExistingGalaxy(string argGalaxyName);
+
+        public (bool success, string errorReason) createNewGalaxy(string argGalaxyName);
+
+        public (bool success, string errorReason) loginIntoGalaxy(string argGalaxyName, string argUsername, string argPassword);
+
+        public (bool success, string errorReason, List<object>) enumerateGalaxyObjects();
+
+        public (bool success, string errorReason) logoutFromGalaxy();
+    }
+}
