@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\AvevaGRAccessDemo.csproj",
+      "projectUniqueName": "C:\\Repositorios\\ArchestrA-GRAccess-Demo\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\AvevaGRAccessDemo.csproj",
       "projectName": "AvevaGRAccessDemo",
-      "projectPath": "C:\\Users\\Administrator\\source\\repos\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\AvevaGRAccessDemo.csproj",
+      "projectPath": "C:\\Repositorios\\ArchestrA-GRAccess-Demo\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\AvevaGRAccessDemo.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\source\\repos\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\obj\\",
+      "outputPath": "C:\\Repositorios\\ArchestrA-GRAccess-Demo\\AvevaGRAccessDemo\\AvevaGRAccessDemo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

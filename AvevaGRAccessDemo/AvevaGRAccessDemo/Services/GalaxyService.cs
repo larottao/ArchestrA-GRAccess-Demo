@@ -29,9 +29,9 @@
 
         private ICommandResult? _cmd = null;
 
-        private Boolean validNodeInfoWasProvided = false;
+        private Boolean _validNodeInfoWasProvided = false;
 
-        private Boolean currentlyLoggedIntoGalaxy = false;
+        private Boolean _currentlyLoggedIntoGalaxy = false;
 
         private GRAccessApp grAccess = new GRAccessAppClass();
 
@@ -52,7 +52,7 @@
             //TODO: Check the node format is valid
             //TODO: Ping the node, or ensure it actually exists
 
-            validNodeInfoWasProvided = true;
+            _validNodeInfoWasProvided = true;
 
             return (true, "");
         }
@@ -64,9 +64,9 @@
 
             try
             {
-                if (!validNodeInfoWasProvided)
+                if (!_validNodeInfoWasProvided)
                 {
-                    return (false, "Provide valid node info first.", galaxiesList);
+                    return (false, "Provide the node info first (i.e. valid initial configuration)", galaxiesList);
                 }
 
                 _gals = grAccess.QueryGalaxies(nodeName);
@@ -157,7 +157,7 @@
             {
                 var resultEnumGals = enumerateGalaxiesOnServer();
 
-                if (!resultEnumGals.success)
+                if (!resultEnumGals.success || _gals == null)
                 {
                     return (false, resultEnumGals.errorReason);
                 }
@@ -174,7 +174,7 @@
                     return (false, $"Login into Galaxy with name {argGalaxyName} failed: {_cmd.Text + " : " + _cmd.CustomMessage}.");
                 }
 
-                currentlyLoggedIntoGalaxy = true;
+                _currentlyLoggedIntoGalaxy = true;
 
                 return (true, "");
             }
@@ -195,7 +195,7 @@
 
                 _galaxy.Logout();
                 _galaxy = null;
-                currentlyLoggedIntoGalaxy = false;
+                _currentlyLoggedIntoGalaxy = false;
 
                 return (true, "");
             }
@@ -203,6 +203,27 @@
             {
                 return (false, $"Unable to logout from Galaxy: {ex.Message}");
             }
+        }
+
+        public (bool success, string errorReason, bool isLogged, string galaxyName) isUserCurrentlyLoggedIntoGalaxy()
+        {
+            try {
+
+                if (_currentlyLoggedIntoGalaxy && _galaxy != null) {
+
+                    return (true, "", true, _galaxy.Name);
+                }
+                else {                   
+
+                        return (true, "", false, "");
+                    }                
+            }
+
+            catch (Exception ex)
+            {
+                return (false, $"Unable to get Login status from Galaxy: {ex.Message}", false, "");
+            }
+
         }
 
         public (bool success, string errorReason, List<object>) enumerateGalaxyObjects()
@@ -311,5 +332,7 @@
 
               */
         }
+
+   
     }
 }

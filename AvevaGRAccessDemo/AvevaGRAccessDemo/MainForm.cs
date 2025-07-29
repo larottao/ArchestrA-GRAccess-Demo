@@ -23,6 +23,10 @@ namespace AvevaGRAccessDemo
 
         private IGalaxyOps _galaxyOps = new GalaxyService();
 
+        enum UI_STATE { LOGGED_INTO_GALAXY, READY_TO_LOGIN }
+
+        UI_STATE currentUiState = UI_STATE.READY_TO_LOGIN;
+
         private void Form1_Load(object sender, EventArgs e)
         {
             textBoxNodeName.Text = Environment.MachineName;
@@ -32,19 +36,22 @@ namespace AvevaGRAccessDemo
         {
             var result = _galaxyOps.enumerateGalaxiesOnServer();
 
-            if(!result.success){
+            if (!result.success)
+            {
                 MessageBox.Show(result.errorReason);
                 return;
             }
 
-            comboBoxGalaxiesOnServer.Items.Clear(); 
+            comboBoxGalaxiesOnServer.Items.Clear();
 
-            foreach (IGalaxy galaxy in result.galaxiesOnServer) {
+            foreach (IGalaxy galaxy in result.galaxiesOnServer)
+            {
 
                 comboBoxGalaxiesOnServer.Items.Add(galaxy.Name);
             }
 
-            if (result.galaxiesOnServer.Any()) {
+            if (result.galaxiesOnServer.Any())
+            {
                 comboBoxGalaxiesOnServer.SelectedIndex = 0;
             }
         }
@@ -72,5 +79,73 @@ namespace AvevaGRAccessDemo
         {
             //TODO
         }
+
+        private void buttonLoginIntoGalaxy_Click(object sender, EventArgs e)
+        {
+            if (comboBoxGalaxiesOnServer.SelectedIndex < 0) {
+                MessageBox.Show("Select a Galaxy first");
+                return;
+            }
+
+            if (currentUiState == UI_STATE.READY_TO_LOGIN)
+            {
+
+                var loginResult = _galaxyOps.loginIntoGalaxy(comboBoxGalaxiesOnServer.Text, "", "");
+
+                if (loginResult.success)
+                {
+                    setNewUiState(UI_STATE.LOGGED_INTO_GALAXY);
+                }
+                else
+                {               
+                    MessageBox.Show(loginResult.errorReason);
+                }
+            }
+
+            else if (currentUiState == UI_STATE.LOGGED_INTO_GALAXY)
+            {
+
+                var logoutResult = _galaxyOps.logoutFromGalaxy();
+
+                if (logoutResult.success)
+                {
+                    setNewUiState(UI_STATE.READY_TO_LOGIN);
+                }
+                else
+                {
+                    MessageBox.Show(logoutResult.errorReason);
+                }
+            }
+
+        }
+
+        private void setNewUiState(UI_STATE argUiState) {
+
+
+            currentUiState = argUiState;
+            switch (argUiState) {
+
+                
+                case UI_STATE.READY_TO_LOGIN:
+
+                    buttonLoginIntoGalaxy.Text = "Login into Galaxy";
+                    comboBoxGalaxiesOnServer.Enabled = true;
+
+                    break;
+
+                case UI_STATE.LOGGED_INTO_GALAXY:
+
+                    buttonLoginIntoGalaxy.Text = "Logout from Galaxy";
+                    comboBoxGalaxiesOnServer.Enabled = false;
+
+                    break;
+
+        
+            }
+        }
     }
+
+
+
+
 }

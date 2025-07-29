@@ -15,6 +15,8 @@ namespace AvevaGRAccessDemo.Interfaces
 
         public (bool success, string errorReason) loginIntoGalaxy(string argGalaxyName, string argUsername, string argPassword);
 
+        public (bool success, string errorReason, bool isLogged, String galaxyName) isUserCurrentlyLoggedIntoGalaxy();
+
         public (bool success, string errorReason, List<object>) enumerateGalaxyObjects();
 
         public (bool success, string errorReason) logoutFromGalaxy();
