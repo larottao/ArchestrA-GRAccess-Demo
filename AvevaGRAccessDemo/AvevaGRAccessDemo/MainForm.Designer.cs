@@ -210,6 +210,7 @@
             comboBoxGalaxyTemplates.Name = "comboBoxGalaxyTemplates";
             comboBoxGalaxyTemplates.Size = new Size(222, 23);
             comboBoxGalaxyTemplates.TabIndex = 13;
+            comboBoxGalaxyTemplates.SelectedIndexChanged += comboBoxGalaxyTemplates_SelectedIndexChanged;
             // 
             // buttonEnumerateTemplates
             // 

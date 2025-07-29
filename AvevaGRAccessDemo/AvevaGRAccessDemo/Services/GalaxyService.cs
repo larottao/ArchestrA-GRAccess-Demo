@@ -32,6 +32,8 @@
 
         private Boolean _currentlyLoggedIntoGalaxy = false;
 
+        private Dictionary<String, IgObject> _galaxyObjectsDictionary = new Dictionary<String, IgObject>();
+
         private GRAccessApp grAccess = new GRAccessAppClass();
 
         public (bool success, string errorReason) setInitialConfig(InitialConfig initialConfig)
@@ -221,15 +223,15 @@
             }
         }
 
-        public (bool success, string errorReason, List<string> templateNames) enumerateGalaxyTemplates()
+        public (bool success, string errorReason, List<String> objectNameList) enumerateGalaxyObjects()
         {
-            var templateNames = new List<string>();
+            List<String> templateNameList = new List<string>();
 
             try
             {
                 if (_galaxy == null || !_currentlyLoggedIntoGalaxy)
                 {
-                    return (false, "You must login into a Galaxy first.", templateNames);
+                    return (false, "You must login into a Galaxy first.", new List<String>());
                 }
 
                 //How to search:
@@ -237,9 +239,9 @@
                 //string[] tagnames = { "*" }; //Nah, this does not work.
                 //string[] tagnames = { "$UserDefined" };
                 //string[] tagnames = { "$AppEngine" };
-           
+
                 /*
-                
+
                 EgObjectIsTemplateOrInstance:
 
                     gObjectIsTemplate
@@ -250,7 +252,6 @@
                     0 = gConditionName (or Name in some contexts)
                     1 = gConditionTagname
                     2 = gConditionDerivedFrom
-                                    
 
                     EMatchCondition:
 
@@ -265,25 +266,84 @@
                   0, // Name
                   0); //EMatchCondition
 
-
                 _cmd = _galaxy.CommandResult;
 
                 if (!_cmd.Successful)
                 {
-                    return (false, $"Querying for templates failed: {_cmd.Text} : {_cmd.CustomMessage}", templateNames);
+                    return (false, $"Querying for templates failed: {_cmd.Text} : {_cmd.CustomMessage}", new List<String>());
                 }
+
+                _galaxyObjectsDictionary.Clear();
 
                 foreach (IgObject obj in queryResult)
                 {
-                    // CORRECTED: Use obj.Tagname directly.
-                    templateNames.Add(obj.Tagname);
+                    _galaxyObjectsDictionary.Add(obj.Tagname, obj);
+                    templateNameList.Add(obj.Tagname);
                 }
 
-                return (true, "", templateNames);
+                return (true, "", templateNameList);
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to enumerate templates: {ex.Message}", templateNames);
+                return (false, $"Failed to enumerate templates: {ex.Message}", new List<String>());
+            }
+        }
+
+        public (bool success, string errorReason, List<ObjectAttributeDetail> attributeDetails) getObjectAttributeDetails(String argTagName, String[] requiredAttributes)
+        {
+            try
+            {
+                if (_galaxy == null || !_currentlyLoggedIntoGalaxy)
+                {
+                    return (false, "You must login into a Galaxy first.", new List<ObjectAttributeDetail>());
+                }
+
+                if (!_galaxyObjectsDictionary.TryGetValue(argTagName, out IgObject? targetObject))
+                {
+                    return (false, $"Object '{argTagName}' not found in the Galaxy.", new List<ObjectAttributeDetail>());
+                }
+
+                var attributeDetails = new List<ObjectAttributeDetail>();
+
+                targetObject.CheckOut();
+
+                _cmd = _galaxy.CommandResult;
+                if (!_cmd.Successful)
+                {
+                    return (false, $"Failed to check out object '{targetObject}': {_cmd.Text} : {_cmd.CustomMessage}", attributeDetails);
+                }
+
+                foreach (IAttribute attr in targetObject.ConfigurableAttributes)
+                {
+                    if (!requiredAttributes.Contains(attr.Name))
+                    {
+                        continue;
+                    }
+
+                    attributeDetails.Add(new ObjectAttributeDetail
+                    {
+                        Name = attr.Name,
+                        Description = attr.Description.ToString(),
+                        DataType = attr.DataType.ToString(),
+                        Category = attr.AttributeCategory.ToString(),
+                        Value = ParseAttribute.GetAttributeValue(attr, false)
+                    });
+                }
+
+                targetObject.CheckIn("Attributes enumerated by GRAccessDemo.");
+
+                _cmd = _galaxy.CommandResult;
+
+                if (!_cmd.Successful)
+                {                    
+                    Debug.WriteLine($"Warning: Failed to check in object '{argTagName}': {_cmd.Text} : {_cmd.CustomMessage}");
+                }
+
+                return (true, "", attributeDetails);
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to enumerate attributes for '{argTagName}': {ex.Message}", new List<ObjectAttributeDetail>());
             }
         }
     }

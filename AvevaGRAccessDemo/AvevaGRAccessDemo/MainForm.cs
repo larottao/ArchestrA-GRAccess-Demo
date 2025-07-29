@@ -149,7 +149,7 @@ namespace AvevaGRAccessDemo
 
         private void buttonEnumerateTemplates_Click(object sender, EventArgs e)
         {
-            var result = _galaxyOps.enumerateGalaxyTemplates();
+            var result = _galaxyOps.enumerateGalaxyObjects();
 
             if (!result.success)
             {
@@ -159,15 +159,33 @@ namespace AvevaGRAccessDemo
 
             comboBoxGalaxyTemplates.Items.Clear();
 
-            foreach (String templateName in result.templateNames)
+            foreach (String objectName in result.objectNameList)
             {
-                comboBoxGalaxyTemplates.Items.Add(templateName);
+                comboBoxGalaxyTemplates.Items.Add(objectName);
             }
 
-            if (result.templateNames.Any())
+            if (result.objectNameList.Any())
             {
                 comboBoxGalaxyTemplates.SelectedIndex = 0;
             }
+        }
+
+        private void comboBoxGalaxyTemplates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //TODO Add a Gui for this
+            String[] requiredAttributes = { "PV", "CMD" };
+
+            var result = _galaxyOps.getObjectAttributeDetails(comboBoxGalaxyTemplates.Text, requiredAttributes);
+
+            if (!result.success)
+            {
+                MessageBox.Show(result.errorReason);
+                return;
+            }
+
+            string message = string.Join(Environment.NewLine, result.attributeDetails.Select(detail => detail.ToString()));
+
+            MessageBox.Show(message, "Attribute Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
