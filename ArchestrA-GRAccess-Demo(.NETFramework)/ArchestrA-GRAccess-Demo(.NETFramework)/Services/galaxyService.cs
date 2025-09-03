@@ -1,19 +1,12 @@
-﻿//Aveva GRAccess Demo
-//By Luis Felipe La Rotta
-
-//This solution requires the .DLL located on C:\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll
-//My program is a demo with no commercial purposes and
-//it is based on a code example publicly provided by © 2022 AVEVA Software, LLC. All rights reserved.
-//See AVEVA's original code here:
-//https://docs.aveva.com/bundle/sp-appserver/page/436618.html
-
-//TODO: Make this service async, to avoid blocking the UI!
+﻿//TODO: Make this service async, to avoid blocking the UI!
 
 using ArchestrA.GRAccess;
-
+using ArchestrA.Visualization.GraphicAccess;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using static ArchestrA.Visualization.GraphicLibraryPublic.XMLOperations;
 
 namespace ArchestrA_GRAccess_Demo_.NETFramework_
 {
@@ -33,7 +26,9 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
         private Dictionary<String, IgObject> _galaxyObjectsDictionary = new Dictionary<String, IgObject>();
 
-        private GRAccessApp grAccess = new GRAccessApp();
+        public GRAccessApp grAccess = new GRAccessApp();
+
+        public IgObject objectUnderInspection = null;
 
         public (bool success, string errorReason) setInitialConfig(InitialConfig initialConfig)
         {
@@ -233,37 +228,29 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     return (false, "You must login into a Galaxy first.", new List<String>());
                 }
 
+                IgObjects queryResult = null;
+
                 //How to search:
 
                 //string[] tagnames = { "*" }; //Nah, this does not work.
-                //string[] tagnames = { "$UserDefined" };
-                //string[] tagnames = { "$AppEngine" };
+                //string[] tagnames = { "$UserDefined" }; //this works
+                //string[] tagnames = { "$AppEngine" }; //this works
+                //_galaxy.QueryObjectsByName(EgObjectIsTemplateOrInstance.gObjectIsInstance, tagnames);
 
-                /*
+                //queryResult = _galaxy.QueryObjects(
+                //    EgObjectIsTemplateOrInstance.gObjectIsTemplate,
+                //    0,
+                //    1);
 
-                EgObjectIsTemplateOrInstance:
+                //queryResult = _galaxy.QueryObjects(
+                //  EgObjectIsTemplateOrInstance.gObjectIsInstance,
+                //  0,
+                //  0);
 
-                    gObjectIsTemplate
-                    gObjectIsInstance
-
-                    EConditionType:
-
-                    0 = gConditionName (or Name in some contexts)
-                    1 = gConditionTagname
-                    2 = gConditionDerivedFrom
-
-                    EMatchCondition:
-
-                    0 = gMatchAny
-                    1 = gMatchExact
-                    2 = gMatchWildcard
-
-                */
-
-                IgObjects queryResult = _galaxy.QueryObjects(
-                  EgObjectIsTemplateOrInstance.gObjectIsInstance, // Instances
-                  0, // Name
-                  0); //EMatchCondition
+                queryResult = _galaxy.QueryObjects(
+                    EgObjectIsTemplateOrInstance.gObjectIsInstance,
+                    0,
+                    0);
 
                 _cmdResult = _galaxy.CommandResult;
 
@@ -279,6 +266,8 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     _galaxyObjectsDictionary.Add(obj.Tagname, obj);
                     templateNameList.Add(obj.Tagname);
                 }
+
+                templateNameList.OrderBy(name => name.ToString());
 
                 return (true, "", templateNameList);
             }
@@ -297,10 +286,12 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     return (false, "You must login into a Galaxy first.", new List<ObjectAttributeDetail>());
                 }
 
-                if (!_galaxyObjectsDictionary.TryGetValue(argTagName, out IgObject targetObject))
+                if (!_galaxyObjectsDictionary.TryGetValue(argTagName, out IgObject objectFoundInGalaxy))
                 {
                     return (false, $"Object '{argTagName}' not found in the Galaxy.", new List<ObjectAttributeDetail>());
                 }
+
+                objectUnderInspection = objectFoundInGalaxy as IgObject;
 
                 var attributeDetails = new List<ObjectAttributeDetail>();
 
@@ -309,10 +300,10 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                 _cmdResult = _galaxy.CommandResult;
                 if (!_cmdResult.Successful)
                 {
-                    return (false, $"Failed to check out object '{targetObject}': {_cmdResult.Text} : {_cmdResult.CustomMessage}", attributeDetails);
+                    return (false, $"Failed to check out object '{objectFoundInGalaxy}': {_cmdResult.Text} : {_cmdResult.CustomMessage}", attributeDetails);
                 }
 
-                foreach (IAttribute attr in targetObject.ConfigurableAttributes)
+                foreach (IAttribute attr in objectFoundInGalaxy.ConfigurableAttributes)
                 {
                     if (requiredAttributes != null && !requiredAttributes.Contains(attr.Name))
                     {
@@ -334,6 +325,42 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             catch (Exception ex)
             {
                 return (false, $"Failed to enumerate attributes for '{argTagName}': {ex.Message}", new List<ObjectAttributeDetail>());
+            }
+        }
+
+        public (bool success, string errorReason) convertAApckIntoXml(String argTargetDirectory)
+        {
+            try
+            {
+                if (objectUnderInspection == null)
+                {
+                    return (false, $"You need to load an object first");
+                }
+
+                // Ensure the target directory exists
+                if (!Directory.Exists(argTargetDirectory))
+                {
+                    Directory.CreateDirectory(argTargetDirectory);
+                }
+
+                string xmlFilePath = Path.Combine(argTargetDirectory, $"{objectUnderInspection.Tagname}.xml");
+
+                IGraphicAccess4 graphicAccess = new GraphicAccess();
+
+                IGraphicAccessResult graphicAccessResult = graphicAccess.ExportGraphicToXml(_galaxy, objectUnderInspection.Tagname, argTargetDirectory, bExportSubstituteStrings: true);
+
+                StatusCode status = graphicAccessResult.Status;
+
+                if (graphicAccessResult.Successful)
+                {
+                    return (true, $"Export Complete");
+                }
+
+                return (false, $"Export Failed. {graphicAccessResult.CustomMessage}");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to export graphic {objectUnderInspection.Tagname}: {ex.Message}");
             }
         }
     }

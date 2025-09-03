@@ -8,13 +8,14 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ArchestrA_GRAccess_Demo_.NETFramework_</RootNamespace>
     <AssemblyName>ArchestrA-GRAccess-Demo%28.NETFramework%29</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,6 +34,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArchestrA.GRAccess, Version=2.0.0.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.QuickScript.Contracts">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ModernEditors\Preview\ViewAppFramework\Content\GRM\ArchestrA.QuickScript.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.GraphicAccess">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ArchestrA.Visualization.GraphicAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.GraphicLibrary">
+      <HintPath>..\..\..\Aveva-System-Platform-Tools\bin\ArchestrA.Visualization.GraphicLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.GraphicLibraryPublic">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ModernEditors\Preview\ViewAppFramework\Content\MA\ArchestrA.Visualization.GraphicLibraryPublic.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.GraphicScriptTypes">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ArchestrA\ArchestrA.Visualization.GraphicScriptTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.WizardOptions">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.Visualization.WizardOptions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,6 +103,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -92,17 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="aaGRAccess">
-      <Guid>{A9D9BAA0-AD18-47A8-84C0-5E49F9BD36B6}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

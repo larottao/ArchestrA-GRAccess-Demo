@@ -39,7 +39,7 @@
             this.richTextBox.Location = new System.Drawing.Point(25, 25);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBox.Size = new System.Drawing.Size(495, 475);
+            this.richTextBox.Size = new System.Drawing.Size(273, 471);
             this.richTextBox.TabIndex = 0;
             this.richTextBox.Text = "";
             // 
@@ -47,7 +47,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 523);
+            this.ClientSize = new System.Drawing.Size(323, 523);
             this.Controls.Add(this.richTextBox);
             this.MaximizeBox = false;
             this.Name = "ObjectViewer";

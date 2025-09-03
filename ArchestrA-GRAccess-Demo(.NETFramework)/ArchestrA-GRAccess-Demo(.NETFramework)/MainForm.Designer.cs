@@ -46,14 +46,17 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.buttonViewAttrib = new System.Windows.Forms.Button();
             this.comboBoxGalaxyTemplates = new System.Windows.Forms.ComboBox();
             this.buttonEnumerateTemplates = new System.Windows.Forms.Button();
-            this.buttonViewAttrib = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.buttonAapckIntoXml = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonEnumerateGalaxies
@@ -207,6 +210,17 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Goal 4";
             // 
+            // buttonViewAttrib
+            // 
+            this.buttonViewAttrib.Enabled = false;
+            this.buttonViewAttrib.Location = new System.Drawing.Point(236, 60);
+            this.buttonViewAttrib.Name = "buttonViewAttrib";
+            this.buttonViewAttrib.Size = new System.Drawing.Size(162, 29);
+            this.buttonViewAttrib.TabIndex = 14;
+            this.buttonViewAttrib.Text = "View Attributes";
+            this.buttonViewAttrib.UseVisualStyleBackColor = true;
+            this.buttonViewAttrib.Click += new System.EventHandler(this.buttonViewAttrib_Click);
+            // 
             // comboBoxGalaxyTemplates
             // 
             this.comboBoxGalaxyTemplates.Enabled = false;
@@ -228,22 +242,33 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.buttonEnumerateTemplates.UseVisualStyleBackColor = true;
             this.buttonEnumerateTemplates.Click += new System.EventHandler(this.buttonEnumerateTemplates_Click);
             // 
-            // buttonViewAttrib
+            // groupBox6
             // 
-            this.buttonViewAttrib.Enabled = false;
-            this.buttonViewAttrib.Location = new System.Drawing.Point(236, 60);
-            this.buttonViewAttrib.Name = "buttonViewAttrib";
-            this.buttonViewAttrib.Size = new System.Drawing.Size(162, 29);
-            this.buttonViewAttrib.TabIndex = 14;
-            this.buttonViewAttrib.Text = "View Attributes";
-            this.buttonViewAttrib.UseVisualStyleBackColor = true;
-            this.buttonViewAttrib.Click += new System.EventHandler(this.buttonViewAttrib_Click);
+            this.groupBox6.Controls.Add(this.buttonAapckIntoXml);
+            this.groupBox6.Location = new System.Drawing.Point(20, 501);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(419, 75);
+            this.groupBox6.TabIndex = 13;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Goal 6";
+            // 
+            // buttonAapckIntoXml
+            // 
+            this.buttonAapckIntoXml.Enabled = false;
+            this.buttonAapckIntoXml.Location = new System.Drawing.Point(16, 28);
+            this.buttonAapckIntoXml.Name = "buttonAapckIntoXml";
+            this.buttonAapckIntoXml.Size = new System.Drawing.Size(162, 29);
+            this.buttonAapckIntoXml.TabIndex = 7;
+            this.buttonAapckIntoXml.Text = "Convert .aapck into xml";
+            this.buttonAapckIntoXml.UseVisualStyleBackColor = true;
+            this.buttonAapckIntoXml.Click += new System.EventHandler(this.buttonAapckIntoXml_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 510);
+            this.ClientSize = new System.Drawing.Size(458, 607);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -253,6 +278,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Aveva GR Access Demo";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -260,6 +286,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -283,6 +310,8 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
         private System.Windows.Forms.Button buttonEnumerateTemplates;
         private System.Windows.Forms.ComboBox comboBoxGalaxyTemplates;
         private Button buttonViewAttrib;
+        private GroupBox groupBox6;
+        private Button buttonAapckIntoXml;
     }
 }
 

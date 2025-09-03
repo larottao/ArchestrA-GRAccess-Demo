@@ -1,9 +1,17 @@
 ﻿//Aveva GRAccess Demo
 //By Luis Felipe La Rotta
 
-//This solution requires the .DLL located on C:\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll
-//My program is a demo with no commercial purposes and
-//it is based on a code example publicly provided by © 2022 AVEVA Software, LLC. All rights reserved.
+//This solution requires the .DLLs located on
+
+//C:\Program Files(x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll
+//C:\Program Files(x86)\ArchestrA\Framework\Bin\ArchestrA.Visualization.GraphicAccess.dll
+//C:\Repositories\Aveva-System-Platform-Tools\bin\ArchestrA.Visualization.GraphicLibrary.dll
+//C:\Program Files (x86)\ArchestrA\Framework\Bin\ModernEditors\Preview\ViewAppFramework\Content\MA\ArchestrA.Visualization.GraphicLibraryPublic.dll
+//C:\Program Files(x86)\ArchestrA\Framework\Bin\ModernEditors\Preview\ViewAppFramework\Content\GRM\ArchestrA.QuickScript.Contracts.dll
+//C:\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.Visualization.WizardOptions.dll
+//C:\Program Files (x86)\ArchestrA\Framework\Bin\ArchestrA\ArchestrA.Visualization.GraphicScriptTypes.dll
+
+//This program is based on a code example publicly provided by © 2022 AVEVA Software, LLC. All rights reserved.
 //See AVEVA's original code here:
 //https://docs.aveva.com/bundle/sp-appserver/page/436618.html
 
@@ -11,8 +19,10 @@ using ArchestrA.GRAccess;
 
 using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ArchestrA_GRAccess_Demo_.NETFramework_
 {
@@ -44,6 +54,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     buttonEnumerateTemplates.Enabled = false;
                     comboBoxGalaxyTemplates.Enabled = false;
                     buttonViewAttrib.Enabled = false;
+                    buttonAapckIntoXml.Enabled = false;
 
                     break;
 
@@ -54,6 +65,7 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
                     buttonEnumerateTemplates.Enabled = true;
                     comboBoxGalaxyTemplates.Enabled = true;
                     buttonViewAttrib.Enabled = true;
+                    buttonAapckIntoXml.Enabled = true;
 
                     break;
             }
@@ -207,6 +219,39 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
             objectViewer.richTextBox.Text = message;
 
             objectViewer.Show();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            GRAccessApp m_gr = new GRAccessApp();
+
+            buttonSetInitialConfig_Click(sender, e);
+            buttonEnumerateGalaxies_Click(sender, e);
+            buttonLoginIntoGalaxy_Click(sender, e);
+            buttonEnumerateTemplates_Click(sender, e);
+        }
+
+        private void buttonAapckIntoXml_Click(object sender, EventArgs e)
+        {
+            // Initialize the folder browser dialog
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "Select a folder";
+
+                // Show the dialog
+                DialogResult result = folderDialog.ShowDialog();
+
+                // Check if the user clicked OK
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
+                {
+                    // The selected folder path
+                    string selectedPath = folderDialog.SelectedPath;
+
+                    var conversionResult = _galaxyOps.convertAApckIntoXml(selectedPath);
+
+                    MessageBox.Show(conversionResult.success + conversionResult.errorReason);
+                }
+            }
         }
     }
 }
