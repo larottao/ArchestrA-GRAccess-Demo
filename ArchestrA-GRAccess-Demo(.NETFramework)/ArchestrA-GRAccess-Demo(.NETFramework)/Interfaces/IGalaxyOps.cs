@@ -22,6 +22,8 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
         (bool success, string errorReason) convertAApckIntoXml(String argTargetDirectory);
 
+        (bool success, string errorReason) test();
+
         (bool success, string errorReason, List<ObjectAttributeDetail> attributeDetails) getObjectAttributeDetails(String argTagName, String[] requiredAttributes);
 
         (bool success, string errorReason) logoutFromGalaxy();

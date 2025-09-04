@@ -57,3 +57,6 @@ C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\A
 C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ja\ArchestrA.Visualization.WizardOptions.resources.dll
 C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\zh-CHS\ArchestrA.Visualization.WizardOptions.resources.dll
 C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA.Visualization.GraphicScriptTypes.dll
+C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA.Visualization.BrowserAbstractions.dll
+C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\ArchestrA.Visualization.GraphicAbstractions.dll
+C:\Repositories\ArchestrA-GRAccess-Demo\ArchestrA-GRAccess-Demo(.NETFramework)\ArchestrA-GRAccess-Demo(.NETFramework)\bin\Debug\Archestra.Visualization.ClientControlInterop.dll

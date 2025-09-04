@@ -232,25 +232,25 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
                 //How to search:
 
-                //string[] tagnames = { "*" }; //Nah, this does not work.
                 //string[] tagnames = { "$UserDefined" }; //this works
                 //string[] tagnames = { "$AppEngine" }; //this works
-                //_galaxy.QueryObjectsByName(EgObjectIsTemplateOrInstance.gObjectIsInstance, tagnames);
 
+                //For objects:
                 //queryResult = _galaxy.QueryObjects(
                 //    EgObjectIsTemplateOrInstance.gObjectIsTemplate,
                 //    0,
                 //    1);
 
+                //For Instances
                 //queryResult = _galaxy.QueryObjects(
                 //  EgObjectIsTemplateOrInstance.gObjectIsInstance,
                 //  0,
                 //  0);
 
-                queryResult = _galaxy.QueryObjects(
-                    EgObjectIsTemplateOrInstance.gObjectIsInstance,
-                    0,
-                    0);
+                //string[] tagnames = { "*" }; //A failed attempt, this does not work.
+                //_galaxy.QueryObjectsByName(EgObjectIsTemplateOrInstance.gObjectIsInstance, tagnames);
+
+                queryResult = _galaxy.QueryObjects(ArchestrA.GRAccess.EgObjectIsTemplateOrInstance.gObjectIsInstance, ArchestrA.GRAccess.EConditionType.NameSpaceIdIs, ArchestrA.GRAccess.Namespace.VisualElement, ArchestrA.GRAccess.EMatch.MatchCondition);
 
                 _cmdResult = _galaxy.CommandResult;
 
@@ -353,14 +353,61 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
                 if (graphicAccessResult.Successful)
                 {
-                    return (true, $"Export Complete");
+                    return (true, $"Export Complete!");
                 }
 
-                return (false, $"Export Failed. {graphicAccessResult.CustomMessage}");
+                return (false, $"Export Failed. Error details: {graphicAccessResult.CustomMessage}");
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to export graphic {objectUnderInspection.Tagname}: {ex.Message}");
+                return (false, $"Failed to export graphic. Error details: {objectUnderInspection.Tagname}: {ex.Message}");
+            }
+        }
+
+        public (bool success, string errorReason) test()
+        {
+            var templateNameList = new List<string>();
+            var symbolList = new List<string>();
+            var graphicObjectList = new List<string>();
+
+            try
+            {
+                if (_galaxy == null || !_currentlyLoggedIntoGalaxy)
+                {
+                    return (false, "");
+                }
+
+                // --- 1. Enumerate Galaxy Objects ---
+                IgObjects queryResult = _galaxy.QueryObjects(
+                    EgObjectIsTemplateOrInstance.gObjectIsInstance,
+                    0,
+                    0);
+
+                _cmdResult = _galaxy.CommandResult;
+
+                if (!_cmdResult.Successful)
+                {
+                    return (false, "");
+                }
+
+                _galaxyObjectsDictionary.Clear();
+
+                foreach (IgObject obj in queryResult)
+                {
+                    _galaxyObjectsDictionary[obj.Tagname] = obj;
+                    templateNameList.Add(obj.Tagname);
+                }
+
+                // Optional: sort them
+                templateNameList = templateNameList.OrderBy(n => n).ToList();
+                symbolList = symbolList.OrderBy(n => n).ToList();
+                graphicObjectList = graphicObjectList.OrderBy(n => n).ToList();
+
+                return (true, "");
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.ToString());
             }
         }
     }

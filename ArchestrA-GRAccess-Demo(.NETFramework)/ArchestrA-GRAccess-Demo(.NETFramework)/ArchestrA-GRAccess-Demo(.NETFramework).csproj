@@ -39,8 +39,18 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll</HintPath>
     </Reference>
+    <Reference Include="ArchestrA.MxCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23106a86e706d0ae">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.MxCore.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ArchestrA.QuickScript.Contracts">
       <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ModernEditors\Preview\ViewAppFramework\Content\GRM\ArchestrA.QuickScript.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ArchestrA.Visualization.BrowserAbstractions">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.Visualization.BrowserAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Archestra.Visualization.ClientControlInterop">
+      <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\SEditorsCommon\Archestra.Visualization.ClientControlInterop.dll</HintPath>
     </Reference>
     <Reference Include="ArchestrA.Visualization.GraphicAccess">
       <HintPath>..\..\..\..\Program Files (x86)\ArchestrA\Framework\Bin\ArchestrA.Visualization.GraphicAccess.dll</HintPath>

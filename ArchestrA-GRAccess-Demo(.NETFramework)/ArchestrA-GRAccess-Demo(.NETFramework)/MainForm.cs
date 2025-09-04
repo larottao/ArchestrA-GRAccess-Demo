@@ -11,6 +11,10 @@
 //C:\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.Visualization.WizardOptions.dll
 //C:\Program Files (x86)\ArchestrA\Framework\Bin\ArchestrA\ArchestrA.Visualization.GraphicScriptTypes.dll
 
+//C:\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.Visualization.BrowserAbstractions.dll
+//C:\Program Files (x86)\ArchestrA\SEditorsCommon\Archestra.Visualization.ClientControlInterop.dll
+//C:\Program Files (x86)\ArchestrA\SEditorsCommon\ArchestrA.MxCore.dll
+
 //This program is based on a code example publicly provided by © 2022 AVEVA Software, LLC. All rights reserved.
 //See AVEVA's original code here:
 //https://docs.aveva.com/bundle/sp-appserver/page/436618.html
@@ -19,8 +23,10 @@ using ArchestrA.GRAccess;
 
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -223,6 +229,13 @@ namespace ArchestrA_GRAccess_Demo_.NETFramework_
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            var asm2 = Assembly.LoadFrom(@"C:\Program Files (x86)\Common Files\ArchestrA\ArchestrA.GRAccess.dll");
+            Debug.WriteLine("=== GRAccess.dll Types ===");
+            foreach (var t in asm2.GetExportedTypes())
+            {
+                Debug.WriteLine(t.FullName);
+            }
+
             GRAccessApp m_gr = new GRAccessApp();
 
             buttonSetInitialConfig_Click(sender, e);
